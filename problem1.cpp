@@ -19,16 +19,12 @@ class Solution {
 public:
 	vector<int> twoSum(vector<int> &numbers, int target) {
 		// Note: The Solution object is instantiated only once and is reused by each test case.
-		vector<int> v;
-		for (int i = 0; i < numbers.size(); ++i) {
-			for (int j = i + 1; j < numbers.size(); ++j) {
-				if (numbers[i] + numbers[j] == target) {
-					v.push_back(i+1);
-					v.push_back(i+1);
-					return v;
-				}
-			}
+		unordered_map<int, int> imap;
+        for (int i = 0; i < numbers.size(); i++) {
+            auto it = imap.find(target - nums[i]);
+            if (it != imap.end())
+                return vector<int> {it->second, i};
+            imap[numbers[i]] = i;
 		}
-
 	}
 };
