@@ -19,8 +19,6 @@ A solution set is:
 ]
 */
 
-// CAUTION: need to discard duplicate result
-
 class Solution {
 public:
   vector<vector<int>> threeSum(vector<int>& nums) {
@@ -56,4 +54,4 @@ public:
     }
     return ret;
   }
-};
+}
