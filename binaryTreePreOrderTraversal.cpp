@@ -36,7 +36,6 @@ public:
         st.push(node->left);
       }
     }
-
     return ans;
   }
 };
