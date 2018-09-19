@@ -27,7 +27,7 @@ public:
 
   vector<int> inorderTraversal_iter(TreeNode *root) {
     vector<int> ret;
-    stack<int> st;
+    stack<TreeNode *> st;
     TreeNode *cur = root;
     while (cur || !st.empty()) {
       while (cur) {
