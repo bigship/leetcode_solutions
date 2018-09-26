@@ -62,7 +62,7 @@ private:
     // recursively call search on 4 directions
     bool found = search(board, word, idx+1, i-1, j) || search(board, word, idx+1, i+1, j)
             || search(board, word, idx+1, i, j-1) || search(board, word, idx+1, i, j+1);
-    board[i][j] = cur;   // write cell content back, means we can visit it again.
+    board[i][j] = cur;  // write cell content back, means we can visit it again.
     return found;
   }
 };
