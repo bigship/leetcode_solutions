@@ -45,8 +45,8 @@ public:
     for (const auto& c : p) ++ms[c - 'a'];
     for (int i = 0; i < sl; i++) {
       if (i >= pl) 
-        --mp[s[i-pl] - 'a'];     // remove head
-      ++mp[s[i] - 'a'];          // add tail
+        --mp[s[i-pl]-'a'];     // remove head
+      ++mp[s[i]-'a'];          // add tail
       if (ms == mp)
         ans.push_back(i+1-pl);
     }
