@@ -21,6 +21,18 @@ public:
     unordered_map<string, bool> m;
     return helper(m, s);
   }
+
+  bool canWin_noMemoization(string s) {
+    for (int i = 1; i < s.size(); i++) {
+      if ((s[i] == s[i-1]) && s[i] == '+') {
+        s[i] = s[i-1] = '-';
+        bool oppoent = canWin_noMemoization(s);
+        s[i] = s[i-1] = '+';
+        if (!oppoent) return true;
+      }
+    }
+    return false;
+  }
 private:
   bool helper(unordered_map<string, bool>& m, string s) {
     if (m.find(s) != m.end()) return m[s];
@@ -35,7 +47,7 @@ private:
         }
       }
     }
-    
+
     m[s] = false;
     return false;
   }
