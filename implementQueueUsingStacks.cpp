@@ -24,19 +24,16 @@ Notes:
     You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
 */
 
-class MyQueue {
+class MyQueueUsingStack {
 public:
-  /** Initialize your data structure here. */
   MyQueue() {
 
   }
 
-  /** Push element x to the back of queue. */
   void push(int x) {
     in.push(x);
   }
 
-  /** Removes the element from in front of queue and returns that element. */
   int pop() {
     if (!out.empty()) {
       int v = out.top();
@@ -54,7 +51,6 @@ public:
     }
   }
 
-  /** Get the front element. */
   int peek() {
     if (!out.empty()) {
       int v = out.top();
@@ -70,11 +66,47 @@ public:
     }
   }
 
-  /** Returns whether the queue is empty. */
   bool empty() {
     return in.empty() && out.empty();
   }
 private:
   stack<int> in;
   stack<int> out;
+};
+
+class MyQueueUsingVector {
+public:
+  MyQueue() {
+
+  }
+
+  void push(int x) {
+    in.push_back(x);
+  }
+
+  int pop() {
+    if (out.empty()) {
+      out = vector<int>(in.rbegin(), in.rend());
+      vector<int>().swap(in);
+    }
+    int value = out.back();
+    out.pop_back();
+    return value;
+  }
+
+  int peek() {
+    if (out.empty()) {
+      out = vector<int>(in.rbegin(), in.rend());
+      vector<int>().swap(in);
+    }
+    int value = out.back();
+    return value;
+  }
+
+  bool empty() {
+    return in.empty() && out.empty();
+  }
+private:
+  vector<int> in;
+  vector<int> out;
 };
