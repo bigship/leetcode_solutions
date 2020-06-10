@@ -27,7 +27,7 @@ class Solution {
 public:
   char findTheDifference(string s, string t) {
     unordered_map<char, int> m;
-    for(const auto& ch : s) {
+    for (const auto& ch : s) {
       if (m.find(ch) == m.end()) {
         m[ch] = 1;
       } else {
@@ -35,7 +35,7 @@ public:
       }
     }
     
-    for(const auto& ch : t) {
+    for (const auto& ch : t) {
       if (m.find(ch) == m.end()) {
         return ch;
       } else {
