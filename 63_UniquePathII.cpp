@@ -37,7 +37,7 @@ int uniquePathWithObstacles(vector<vector<int>>& obstacleGrid) {
     int c = obstacleGrid[0].size();
 
     // should use long, otherwise may overflow
-    vector<vector<long>> dp(r+1, vector<long>(c+1, 0));
+    vector<vector<int>> dp(r+1, vector<int>(c+1, 0));
     dp[r-1][c] = 1;
     for (int row = r-1; row >= 0; row--) {
         for (int column = c-1; column >= 0; column--) {
