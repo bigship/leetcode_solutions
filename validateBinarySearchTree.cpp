@@ -47,4 +47,28 @@ private:
       return false;
     return isValidBST(root->left, min, &root->val) && isValidBST(root->right, &root->val, max);
   }
+
+  // BST中序遍历, 每次比较prev和cur指向的值, prev >= cur则不是BST
+  // 中序遍历的迭代算法必须牢记. 利用stack, 不断push左子节点, 再将cur设为right
+  bool isValidBST_iter(TreeNode *root) {
+      stack<TreeNode *> st;
+      TreeNode *curnode = root;
+      int *prev = nullptr, *cur = nullptr;
+      while (curnode || !st.empty()) {
+          while (curnode) {
+              st.push(curnode);
+              curnode = curnode->left;
+          }
+          curnode = st.top();
+          st.pop();
+          cur = &(curnode->val);
+          if (prev) {
+              if (*prev >= *cur) return false;
+          }
+          prev = &(curnode->val);
+          cur = cur->right;
+      }
+      return true;
+  }
 };
+
