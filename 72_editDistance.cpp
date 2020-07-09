@@ -84,9 +84,9 @@ public:
         if (word1[l1-1] == word2[l2-1])
             ans = minDistance(word1, word2, l1-1, l2-1);
         else
-            ans = min(minDistance_recursionWithMem(word1, word2, l1-1, l2-1),
-                    min(minDistance_recursionWithMem(word1, word2, l1, l2-1),
-                        minDistance_recursionWithMem(word1, word2, l1-1, l2))) + 1;
+            ans = min(minDistance_recursionWithMem(word1, word2, l1-1, l2-1),       // replace last char
+                    min(minDistance_recursionWithMem(word1, word2, l1, l2-1),       // delete last char in l2
+                        minDistance_recursionWithMem(word1, word2, l1-1, l2))) + 1; // insert char to l2
         return d_[l1][l2] = ans;
     }
 private:
