@@ -56,6 +56,7 @@ private:
     // DFS 一直append直到遇到叶子节点
     // 左子树处理完要pop掉最后一个值, 再去处理右子树
     // 右子树处理完也要pop掉最后一个值, 向上回溯
+    // 空间复杂度高 因为保存了每一条路径 !
     void dfs(TreeNode *root, string& str, vector<string>& paths) {
         if (!root) return ;
         if (!root->left && !root->right) {
@@ -72,5 +73,20 @@ private:
             dfs(root->right, str, paths);
             str.pop_back();   // back track
         }
+    }
+
+    // call it like sumTree(root, 0, 0);
+    // Time: O(n), Space: O(1)
+    int sumTree(TreeNode *root, int num, int s) {
+        num = num * 10 + root->val;
+        if (!root->left && !root->right) {
+            s += num;
+            return s;
+        }
+        if (root->left)
+            s = sumTree(root->left, num, s);
+        if (root->right)
+            s = sumTree(root->right, num, s);
+        return s;
     }
 };
