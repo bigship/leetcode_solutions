@@ -28,7 +28,7 @@ public:
   ListNode* swapPairs(ListNode* head) {
     if (!head) return nullptr;
     if (head && head->next == nullptr) return head;
-    
+
     ListNode *dummy = nullptr;
     ListNode *last = dummy;
     ListNode *prev = dummy;
@@ -37,7 +37,7 @@ public:
       prev = cur;
       cur = cur->next;
       if (last != nullptr) last->next = cur;
-      
+
       prev->next = cur->next;
       cur->next = prev;
       swap(cur, prev);
@@ -46,5 +46,27 @@ public:
       cur = cur->next;
     }
     return dummy;
+  }
+
+  // swap value, instead of manipulating pointers
+  ListNode* swapPairs2(ListNode *head) {
+    if (!head) return nullptr;
+    ListNode *first = head;
+    ListNode *second = nullptr;
+    if (first->next) second = first->next;
+    else return first;
+
+    bool exchange = true;
+    while (second) {
+      if (exchange) {
+        std::swap(first->val, second->val);
+        exchange = false;
+      } else {
+        exchange = true;
+      }
+      second = second->next;
+      first = first->next;
+    }
+    return head;
   }
 };
