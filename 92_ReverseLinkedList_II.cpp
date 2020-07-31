@@ -30,9 +30,9 @@ private:
         if (n == 1)
             return;
 
-        right = right->next;   // n没有减致1 right就一直往前走
+        right = right->next;   // n没有减至1 right就一直往前走
         if (m > 1) {
-            left = left->next; // m没有减致1 left就一直往前走
+            left = left->next; // m没有减至1 left就一直往前走
         }
 
         recurseAndReverse(right, m - 1, n - 1);  //  递归调用
