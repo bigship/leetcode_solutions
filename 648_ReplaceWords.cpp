@@ -71,7 +71,7 @@ public:
         TrieNode() {
             children = vector<TrieNode *>(26, nullptr);
         }
-    }
+    };
 };
 
 
