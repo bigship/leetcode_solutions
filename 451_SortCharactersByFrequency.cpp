@@ -86,7 +86,7 @@ public:
     for (auto& item : m) {
       int ch = item.first;
       int cnt = item.second;
-      m[cnt] += string(cnt, ch);
+      m[cnt] += string(cnt, ch);  // 可能多个字符出现的次数相同, 因此要累加
     }
 
     // 倒序遍历map, 同时构建解
