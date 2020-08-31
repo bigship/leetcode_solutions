@@ -62,4 +62,42 @@ public:
     }
     return board;
   }
+
+  // Add recursion solution
+  vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
+    const int row = board.size();
+    const int col = board[0].size();
+    update(click[0], click[1], row, col, board);
+    return board;
+  }
+private:
+  vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+  void update(int x, int y, int row, int col, vector<vector<int>>& board) {
+    if (board[x][y] == 'M' || board[x][y] == 'X') {
+      board[x][y] = 'X';
+      return ;
+    }
+    int minecnt = 0;
+    for (auto& dir : dirs) {
+      int tx = dir.first;
+      int ty = dir.second;
+      if (tx >= 0 && ty >= 0 && tx < row && ty < col) {
+        if (board[tx][ty] == 'M') minecnt++;
+      }
+    }
+    if (minecnt > 0) {
+      board[x][y] = minecnt + '0';
+      return ;
+    } else {
+      board[x][y] = 'B';
+      for (auto& dir : dirs) {
+        int tx = dir.first;
+        int ty = dir.second;
+        if (tx >= 0 && ty >= 0 && tx < row && ty < col) {
+          if (board[tx][ty] == 'E')
+            update(tx, ty, row, col, board);
+        }
+      }
+    }
+  }
 };
