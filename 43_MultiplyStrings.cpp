@@ -71,8 +71,8 @@ private:
         int j = s2.length() - 1;
         deque<int> q;
         while (i >= 0 && j >= 0) {
-            int n1 = s1[i-] - '0';
-            int n2 = s2[j-] - '0';
+            int n1 = s1[i--] - '0';
+            int n2 = s2[j--] - '0';
             int cur = n1 + n2 + carry;
             if (cur >= 10) {
                 carry = 1;
@@ -83,7 +83,7 @@ private:
             q.push_front(cur + '0');
         }
         while (i >= 0) {
-            int ni = s1[i-] - '0';
+            int ni = s1[i--] - '0';
             int cur = ni + carry;
             if (cur >= 10) {
                 carry = 1;
