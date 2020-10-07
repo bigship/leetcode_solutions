@@ -71,7 +71,7 @@ public:
             prev = cur;
             continue;
           }
-          if (cur->val <= prev->val || ((prev->val) & 1) == 0)
+          if (cur->val <= prev->val)
             return false;
           prev = cur;
         } else {
@@ -80,7 +80,7 @@ public:
             prev = cur;
             continue;
           }
-          if (cur->val >= prev->val || ((prev->val) & 1) == 1)
+          if (cur->val >= prev->val)
             return false;
           prev = cur;
         }
