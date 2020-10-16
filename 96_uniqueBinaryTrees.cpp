@@ -18,17 +18,43 @@ Given n = 3, there are a total of 5 unique BST's:
 
 class Solution {
 public:
-    int numTrees(int n) {
-        vector<int> ans(n+1);
-        ans[0] = 1;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < i; j++) {
-                ans[i] += (ans[j] * ans[i - j - 1]);
-            }
-        }
-        return ans[n];
+  int numTrees(int n) {
+    vector<int> ans(n+1);
+    ans[0] = 1;
+    for (int i = 1; i <= n; i++) {
+      for (int j = 0; j < i; j++) {
+        ans[i] += (ans[j] * ans[i - j - 1]);
+      }
     }
-}
+    return ans[n];
+  }
+
+  int numTrees_recursion(int n) {
+    if (n == 0) return 0;
+    return getNumOfTrees(n);
+  }
+
+private:
+  unordered_map<int, int> map;
+
+  int getNumOfTrees(int n) {
+    if (map.find(n) != map.end()) {
+      return map[n];
+    }
+
+    if (n == 0 || n == 1)
+      return 1;
+
+    int cnt = 0;
+    for (int i = 1; i < n; i++) {
+      int leftcnt = getNumOfTrees(i - 1);
+      int rightcnt = getNumOfTrees(n - i);
+      cnt += leftcnt * rightcnt;
+    }
+    map[n] = cnt;
+    return cnt;
+  }
+};
 
 // dp  state: [i]   init: [0] = [1] = 1
 //
