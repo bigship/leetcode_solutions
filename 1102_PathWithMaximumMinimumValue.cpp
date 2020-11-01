@@ -45,7 +45,7 @@ public:
     vector<vector<int>> visited = vector<vector<int>>(row, vector<int>(col, 0));
     int x = 0, y = 0;
     while (x != row - 1 || y != col - 1) {
-      visited[x][y] = 1;
+      visited[x][y] = 1;  // mark as visited
       int cur = A[x][y];
       for (int k = 0; k < 4; k++) {
         int tx = x + dirs[k];
@@ -54,7 +54,7 @@ public:
           if (tx == row - 1 && ty == col - 1) {
             return min;
           }
-          visited[tx][ty] = 1;
+          visited[tx][ty] = 1;             // 先标记为已访问. 这里不加上的话会变慢. 因为可能走不同的路线了
           maxq.push({A[tx][ty], tx, ty});  // 将扩展的节点加入到大顶堆
         }
       }
