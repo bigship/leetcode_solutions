@@ -18,6 +18,8 @@ Constraints:
 
 class Solution {
 public:
+  // 返回所有的解, 一般需要用到回溯法
+  //
   // 和combination很相似
   // 条件变成当前组合的元素个数必须大于1, 且组合要保持升序(非严格递增, 可以相等)
   // 可以套用backtrack类型题目的模板
@@ -26,7 +28,7 @@ public:
   // 3. 循环遍历中递归调用 做出选择
   // 4. 撤销选择
   vector<vector<int>> findSubsequences(vector<int>& nums) {
-    set<vector<int>> ans;  // remove duplicate
+    set<vector<int>> ans;  // remove duplicate, 若是unordered_set则要提供hash function
     vector<int> cur;
     function<void(int, vector<int>&)> dfs = [&](int start, vector<int>& cur) {
       if (cur.size() > 1) ans.insert(cur);
