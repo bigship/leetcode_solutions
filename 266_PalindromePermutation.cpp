@@ -22,16 +22,18 @@ Output: true
 // 如果有字符出现了奇数次, 则只能有这样的一个字符. 否则无法构成回文
 class Solution {
 public:
-  unordered_map<char, int> cntmap;
-  for (auto& ch : s)
-    cntmap[ch]++;
+  bool canPermutePalindrome(string s) {
+    unordered_map<char, int> cntmap;
+    for (auto& ch : s)
+      cntmap[ch]++;
 
-  int oddCnt = 0;
-  for (auto it = cntmap.begin(); it != cntmap.end(); it++) {
-    if (it->second & 1 == 1)
-      oddCnt++;
+    int oddCnt = 0;
+    for (auto it = cntmap.begin(); it != cntmap.end(); it++) {
+      if (it->second & 1 == 1)
+        oddCnt++;
+    }
+    if (oddCnt == 0) return true;
+    return oddCnt == 1;
   }
-  if (oddCnt == 0) return true;
-  return oddCnt == 1;
 };
 
