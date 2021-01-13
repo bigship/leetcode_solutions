@@ -25,6 +25,9 @@ public:
     }
     after->next = nullptr;
     before->next = afterHead->next;
-    return beforeHead->next;
+    ListNode *ans = beforeHead->next;
+    delete beforeHead;
+    delete afterHead;
+    return ans;
   }
 };
