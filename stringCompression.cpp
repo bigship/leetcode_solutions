@@ -80,3 +80,34 @@ public:
     return writePos;
   }
 };
+
+class Solution2 {
+public:
+  int compress(vector<char>& chars) {
+    if (chars.size() == 1) return 1;
+    int i = 1;
+    int idx = 0;
+    while (i < chars.size()) {
+      int cnt = 1;
+      int j = i - 1;
+      while (i < chars.size() && chars[j] == chars[i]) {
+        cnt++;
+        i++;
+        j++;
+      }
+      chars[idx++] = chars[j];
+      if (cnt != 1) {
+        string cntstr = std::to_string(cnt);
+        for (int k = 0; k < cntstr.length(); k++) {
+          chars[idx++] = cntstr[k];
+        }
+      }
+      i++;
+      if (i == chars.size() && chars[i - 1] != chars[i - 2]) {
+        chars[idx++] = chars[i - 1];
+        break;
+      }
+    }
+    return idx;
+  }
+};
