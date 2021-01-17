@@ -41,27 +41,27 @@ Constraints:
 
 class Solution {
 public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int> out;
-        vector<vector<int>> ans;
+  vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<int> out;
+    vector<vector<int>> ans;
 
-        std::sort(candidates.begin(), candidates.end());
-        function<void(int, int)> dfs = [&](int start, int target) {
-            if (target == 0)  {// found a solution
-                ans.push_back(out);
-                return ;
-            }
-            for (int i = start; i < candidates.size(); i++) {
-                if (target < candidates[i]) return ;
-                out.push_back(candidates[i]);
-                dfs(i, target - candidates[i]);
-                out.pop_back();  // back track
-            }
-        };
+    std::sort(candidates.begin(), candidates.end());
+    function<void(int, int)> dfs = [&](int start, int target) {
+      if (target == 0)  {// found a solution
+        ans.push_back(out);
+        return ;
+      }
+      for (int i = start; i < candidates.size(); i++) {
+        if (target < candidates[i]) return ;
+        out.push_back(candidates[i]);
+        dfs(i, target - candidates[i]);
+        out.pop_back();  // back track
+      }
+    };
 
-        dfs(0, target);
-        return ans;
-    }
+    dfs(0, target);
+    return ans;
+  }
 };
 
 
