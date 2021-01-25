@@ -13,7 +13,6 @@ Output: 22
 Explanation: (100) + (101) + (110) + (111) = 4 + 5 + 6 + 7 = 22
 
 Note:
-
     The number of nodes in the tree is between 1 and 1000.
     node.val is 0 or 1.
     The answer will not exceed 2^31 - 1.
@@ -39,7 +38,7 @@ private:
       }
       return ;
     }
-    cur.push_bck(root->val);
+    cur.push_back(root->val);
     if (root->left) {
       helper(root->left, cur, ans);
       cur.pop_back();
@@ -51,4 +50,32 @@ private:
   }
 };
 
+// Add iterative solution.
+// preorder traversal using stack
+// Note the bit trick  1 -> 1 -> 3 == (1 << 1) | 1
+class Solution2 {
+public:
+  int sumRootToLeaf(TreeNode *root) {
+    int ans = 0, cur = 0;
+    std::stack<pair<TreeNode *, int>> stack;
+    stack.push({root, 0});
+    while (!stack.empty()) {
+      auto p = stack.top();
+      stack.pop();
+      cur = p.second;
+      TreeNode *node = p.first;
+
+      if (node) {
+        cur = (cur << 1) | node->val;  // bit trick
+        if (!node->left && !node->right) {
+          ans += cur;
+        } else {
+          stack.push({root->right, cur});
+          stack.push({root->left, cur});
+        }
+      }
+    }
+    return ans;
+  }
+};
 
