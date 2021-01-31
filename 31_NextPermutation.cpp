@@ -22,7 +22,27 @@ public:
   }
 
   void nextPermutation(vector<int>& nums) {
+    int i = nums.size() - 2;
 
+    // 从右向左找出不再递增的位置
+    while (i >= 0 && nums[i + 1] <= nums[i]) {
+      i--;
+    }
+
+    // 如果是全递增的, 说明本身就是最大的permutation了, 逆序得到最小的排列
+    if (i < 0) {
+      std::reverse(nums.begin(), nums.end());
+      return ;
+    }
+
+    // 从i的右边找到刚好比nums[i]要大的位置
+    int j = nums.size() - 1;
+    while (j >= 0 && nums[j] <= nums[i]) {
+      j--;
+    }
+    std::swap(nums[i], nums[j]);   // 交换i, j位置上的值
+    std::reverse(nums.begin() + i + 1, nums.end());  // 逆序从i+1到结尾的全部元素
+    return ;
   }
 };
 
