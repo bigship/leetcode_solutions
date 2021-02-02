@@ -21,11 +21,11 @@ public:
   // 结果就是每个出现超过2次的pair中作组合, 累加组合数即可
   int numEquivDominoPairs(<vector<vector<int>>& dominoes) {
     int ans = 0;
-    unordered_map<string, int> map;
+    unordered_map<int, int> map;
     for (auto& dom: dominoes) {
       if (dom[0] > dom[1]) std::swap(dom[0], dom[1]);
-      string str = to_string(dom[0]) + to_string(dom[1]);
-      map[str]++;
+      int key = dom[0] * 10 + dom[1];
+      map[key]++;
     }
     for (auto &kv : map) {
       if (kv.second > 1) {
