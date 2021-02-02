@@ -69,3 +69,24 @@ class Solution {
   }
 };
 
+
+class Solution2 {
+public:
+  ListNode *deleteDuplicates(ListNode *head) {
+    ListNode dummy(0, head);
+    ListNode *p = &dummy;
+    while (head) {
+      if (head->next && head->val == head->next->val) {
+        while (head->next && head->val == head->next->val) {
+          head = head->next;
+        }
+        p->next = head->next;
+      } else {
+        p = p->next;
+      }
+      head = head->next;
+    }
+    return dummy.next;
+  }
+};
+
