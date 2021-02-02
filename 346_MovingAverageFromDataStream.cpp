@@ -37,3 +37,32 @@ private:
   std::deque<int> q;
   int k;
 };
+
+// 与其每次都求一遍和, 其实只需要用一个变量维护当前队列里的和即可
+// 如果队列长度满足了size, 下一次加入新的元素时将队列头部的元素pop出去
+// 更新cursum即可
+class MovingAverage2 {
+public:
+  MovingAverage(int size) {
+    this->size = size;
+  }
+
+  double next(int val) {
+    if (q.size() < size) {
+      q.push_back(val);
+      cursum += val;
+      return cursum * 1.0 / q.size();
+    } else {
+      int last = q.front();
+      cursum -= last;
+      cursum += val;
+      q.pop_front();
+      q.push_back(val);
+      return cursum * 1.0 / q.size();
+    }
+  }
+private:
+  std::deque<int> q;
+  int cursum = 0;
+  int size = 0;
+};
