@@ -1,10 +1,10 @@
 // 925. Long Pressed Name
 
 /*
-Your friend is typing his name into a keyboard.  Sometimes, when typing a character c, the key might get long pressed, and the character 
+Your friend is typing his name into a keyboard.  Sometimes, when typing a character c, the key might get long pressed, and the character
 will be typed 1 or more times.
 
-You examine the typed characters of the keyboard.  Return True if it is possible that it was your friends name, with some characters 
+You examine the typed characters of the keyboard.  Return True if it is possible that it was your friends name, with some characters
 (possibly none) being long pressed.
 
 Example 1:
@@ -49,15 +49,21 @@ public:
         count++;
         i++;
       }
-      
+
       while (ch == typed[j] && j < typed.size()) {
         count--;
         j++;
       }
-      
+
       if (count > 0) return false;
+
+      // typed还有字符没处理
+      if (i == name.size() && j != typed.size())
+        return false;
+      // typed更短
+      if (i != name.size() && j == typed.size())
+        return false;
     }
-    
     return true;
   }
 };
