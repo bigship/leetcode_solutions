@@ -51,3 +51,36 @@ private:
   }
 };
 
+
+class Solution2 {
+public:
+  int depthSumInverse(vector<NestedInteger>& nestedList) {
+    if (nestedList.empty()) return 0;
+
+    int preSum = 0;
+    int result = 0;
+    std::queue<NestedInteger> queue;
+    for (auto& nestedInt : nestedList) {
+      queue.push(nestedInt);
+    }
+
+    while (!queue.empty()) {
+      int n = queue.size();
+      int levelSum = 0;
+      for (int i = 0; i < n; i++) {
+        NestedInteger ni = queue.front();
+        queue.pop();
+        if (ni.isInteger()) {
+          levelSum += ni.getInteger();
+        } else {
+          for (auto& nestedInt : ni.getList())
+            queue.push(nestedInt);
+        }
+      }
+      preSum += levelSum;   // preSum不清0, 每次处理完一整层, 把结果加到result中
+      result += preSum;     // 相当于把之前的层的结果重复加到最终结果中. 变相实现了level * 当前层的和
+    }
+    return result;
+  }
+};
+
