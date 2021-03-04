@@ -25,6 +25,9 @@ Constraints:
     The number of nodes in the tree is in the range [2, 5000].
     0 <= Node.val <= 105
 */
+
+// Solution: Brute Force. We compare every two node
+// O(n^2)
 class Solution {
 public:
   int maxAncestorDiff(TreeNode* root) {
@@ -45,6 +48,32 @@ private:
     TreeNode *r = child->right;
     maxDiff(root, l, ans);
     maxDiff(root, r, ans);
+  }
+};
+
+// Solution2. 求出每条root到leaf的路径上节点最大值和最小值
+// 当到达叶子节点时, 计算最大值和最小值的差即可. 遍历所有路径找出最大的差值
+// O(n). 每个节点只访问一次
+class Solution2 {
+public:
+  int maxAncestorDiff(TreeNode* root) {
+    if (!root) return 0;
+    int maxv = INT_MIN;
+    int minv = INT_MAX;
+    int ans = INT_MIN;
+    dfs(root, maxv, minv, ans);
+    return ans;
+  }
+private:
+  void dfs(TreeNode *root, int maxv, int minv, int& ans) {
+    if (!root) {
+      ans = max(ans, maxv - minv);
+      return ;
+    }
+    maxv = max(root->val, maxv);
+    minv = min(root->val, minv);
+    dfs(root->left, maxv, minv, ans);
+    dfs(root->right, maxv, minv, ans);
   }
 };
 
