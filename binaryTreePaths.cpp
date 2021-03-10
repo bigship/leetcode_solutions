@@ -41,3 +41,26 @@ public:
   }
 };
 
+// Recursion solution
+class Solution2 {
+public:
+  vector<string> binaryTreePaths(TreeNode* root) {
+    vector<string> ans;
+    getPath(root, "", ans);
+    return ans;
+  }
+private:
+  void getPath(TreeNode *root, string cur, vector<string>& ans) {
+    if (!root) return;
+    if (!root->left && !root->right) {
+      cur += to_string(root->val);
+      ans.push_back(cur);
+      return ;
+    }
+    cur += to_string(root->val);
+    cur += "->";
+    getPath(root->left, cur, ans);
+    getPath(root->right, cur, ans);
+  }
+};
+
