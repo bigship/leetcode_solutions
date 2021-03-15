@@ -59,3 +59,23 @@ private:
     }
 };
 
+
+class Solution_DP {
+public:
+  // dp[i] 表示凑出面值为i的值最少需要使用的硬币个数
+  int coinChange(vector<int>& coins, int amount) {
+    int max = amount + 1;   // 表示无法凑出的面值
+    vector<int> dp(max, max);
+    dp[0] = 0;    // 不使用任何硬币可以凑出面值为0
+
+    for (int i = 1; i <= amount; i++) {
+      for (int j = 0; j < coins.size(); j++) {
+        if (coins[j] <= i) {
+          dp[i] = min(dp[i], dp[i - coins[j]] + 1);
+        }
+      }
+    }
+    return dp[amount] > amount ? -1 : dp[amount];
+  }
+};
+
