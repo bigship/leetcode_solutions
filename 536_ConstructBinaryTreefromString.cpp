@@ -55,7 +55,7 @@ private:
     return node;
   }
 
-  int parseInt(string& s, int index) {
+  int parseInt(string& s, int& index) {
     int sign = s[index] == '-' ? std::stoi(s[index++] + string("1")) : 1;
     int num = 0;
     while (index < s.length() && isdigit(s[index])) {
