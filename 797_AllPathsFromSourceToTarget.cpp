@@ -10,6 +10,10 @@
 // 每次先把起点加入到当前路径中, 去邻接表找出当前节点的下一个可能位置, 更新起点递归调用dfs
 // 如果发现当前起点和终点相同, 表示我们找到了一条路径此时要加入到答案中
 // dfs调用返回后需要backtracking, 即将上一次添加到路径中的节点pop出来, 然后才能继续尝试其他路径
+//
+// Time: O(2^N * N)
+// there could be 2^(N - 1) number of paths
+// build the path need O(N) time
 class Solution {
 public:
   vector<vector<int>> allPathsSourceToTarget(vector<vector<int>>& grid) {
