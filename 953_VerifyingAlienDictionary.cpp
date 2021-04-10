@@ -40,36 +40,41 @@ Constraints:
 class Solution {
 public:
     bool isAlienSorted(vector<string>& words, string order) {
-        int n = words.size();
-        unordered_map<char, int> m;
-        for (int i = 0; i < order.size(); i++)
-            m[order[i]] = i;
-        for (int i = 1; i < n; i++) {
-            if (!compareTwoWords(words[i-1], words[i], m))
-                return false;
-        }
-        return true;
+      int n = words.size();
+      unordered_map<char, int> m;
+      for (int i = 0; i < order.size(); i++)
+        m[order[i]] = i;
+      for (int i = 1; i < n; i++) {
+        if (!compareTwoWords(words[i-1], words[i], m))
+          return false;
+      }
+      return true;
     }
 private:
     bool compareTwoWords(string& s1, string& s2, unordered_map<char, int>& dict) {
-        int n1 = s1.size();
-        int n2 = s2.size();
-        int i, j;
-        int ans = -1;
-        for (i = 0, j = 0; i < n1 && j < n2; i++, j++) {
-            if (s1[i] == s2[j]) continue;
-            if (dict[s1[i]] < dict[s2[j]]) {
-                ans = 1;
-                break;
-            } else {
-                ans = 0;
-                break;
-            }
+      int n1 = s1.size();
+      int n2 = s2.size();
+      int i, j;
+      int ans = -1;
+      for (i = 0, j = 0; i < n1 && j < n2; i++, j++) {
+        if (s1[i] == s2[j]) continue;
+        if (dict[s1[i]] < dict[s2[j]]) {
+          ans = 1;
+          break;
+        } else {
+          ans = 0;
+          break;
         }
+      }
 
-        if (ans == -1)
-            return n2 > n1;
-        return ans;
+      if (ans == -1) {
+        if (n1 == n2) {
+          return true;
+        }
+        return n2 > n1;
+      }
+      return ans;
+    }
 };
 
 
