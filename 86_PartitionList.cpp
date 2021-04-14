@@ -9,9 +9,9 @@ class Solution {
 public:
   ListNode *partition(ListNode *head, int x) {
     ListNode beforeHead(0);
-    ListNode *before = beforeHead;
+    ListNode *before = &beforeHead;
     ListNode aferHead(0);
-    ListNode *after = afterHead;
+    ListNode *after = &afterHead;
 
     while (head) {
       if (head->val < x) {
