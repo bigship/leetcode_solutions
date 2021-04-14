@@ -8,9 +8,9 @@
 class Solution {
 public:
   ListNode *partition(ListNode *head, int x) {
-    ListNode *beforeHead = new ListNode(0);
+    ListNode beforeHead(0);
     ListNode *before = beforeHead;
-    ListNode *aferHead = new ListNode(0);
+    ListNode aferHead(0);
     ListNode *after = afterHead;
 
     while (head) {
@@ -24,10 +24,7 @@ public:
       head = head->next;
     }
     after->next = nullptr;
-    before->next = afterHead->next;
-    ListNode *ans = beforeHead->next;
-    delete beforeHead;
-    delete afterHead;
-    return ans;
+    before->next = afterHead.next;
+    return beforeHead.next;
   }
 };
