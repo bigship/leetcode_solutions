@@ -70,14 +70,12 @@ public:
     int row = rc[0], col = rc[1];
     int x = 0, y = col - 1;
     int ans = INT_MAX;
-    while (x < row && x >= 0 && y >= 0 && y < col) {
+    while (x < row && y >= 0) {
       if (binaryMatrix.get(x, y) == 0) {
         x++;
       } else {
-        while (x < row && y >= 0 && binaryMatrix.get(x, y) == 1)
-          y--;
-        ans = std::min(ans, y + 1);
-        x++;
+        ans = std::min(ans, y);
+        y--;
       }
     }
     if (ans == INT_MAX)
