@@ -82,6 +82,60 @@ public:
   }
 };
 
+
+// Greedy. priority_queue
+// 统计字母出现的次数. 按字母出现的次数为顺序构建大顶堆
+// 每次优先取频率最高的两个字母交替组合. 如果发现出现相邻两个字母一样, 表示无法组成
+class Solution {
+public:
+  string reorganizeString(string s) {
+    unordered_map<char, int> cntmap;
+    for (auto ch : s) {
+      cntmap[ch]++;
+    }
+
+    auto cmp = [&](const pair<char, int>& a, const pair<char, int>& b) {
+      if (a.second == b.second) {
+        return a.first > b.first;
+      }
+      return a.second < b.second;
+    };
+    std::priority_queue<pair<char, int>, vector<pair<char, int>>, decltype(cmp)> maxHeap(cmp);
+    for (auto it = cntmap.begin(); it != cntmap.end(); it++) {
+      maxHeap.push({it->first, it->second});
+    }
+
+    string ans;
+    while (!maxHeap.empty()) {
+      auto t = maxHeap.top();
+      maxHeap.pop();
+      if (!ans.empty() && ans.back() == t.first) {
+        return "";
+      }
+      ans += t.first;
+      t.second--;
+
+      if (!maxHeap.empty()) {
+        auto u = maxHeap.top();
+        maxHeap.pop();
+        ans += u.first;
+        u.second--;
+
+        if (u.second > 0) {
+          maxHeap.push(u);
+        }
+      }
+      if (t.second > 0) {
+        maxHeap.push(t);
+      }
+    }
+
+    return ans;
+  }
+};
+
+
+
 int main() {
   //string input = "tndsewnllhrtwsvxenkscbivijfqnysamckzoyfnapuotmdexzkkrpmppttficzerdndssuveompqkemtbwbodrhwsfpbmkafpwyedpcowruntvymxtyyejqtajkcjakghtdwmuygecjncxzcxezgecrxonnszmqmecgvqqkdagvaaucewelchsmebikscciegzoiamovdojrmmwgbxeygibxxltemfgpogjkhobmhwquizuwvhfaiavsxhiknysdghcawcrphaykyashchyomklvghkyabxatmrkmrfsppfhgrwywtlxebgzmevefcqquvhvgounldxkdzndwybxhtycmlybhaaqvodntsvfhwcuhvuccwcsxelafyzushjhfyklvghpfvknprfouevsxmcuhiiiewcluehpmzrjzffnrptwbuhnyahrbzqvirvmffbxvrmynfcnupnukayjghpusewdwrbkhvjnveuiionefmnfxao";
   string input = "aaaabca";
