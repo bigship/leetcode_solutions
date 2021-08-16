@@ -23,23 +23,16 @@ Constraints:
 class NumArray {
 public:
   // 利用前缀和, 每次计算sumRange可降为O(1)时间
-  NumArray(vector<int>& nums): ptr(nums) {
-    int sum = 0;
-    if (nums.size() >= 1)
-      m[{0, 0}] = nums[0];
-    for (int i = 1; i < nums.size(); i++) {
-      if (i == 1) {
-        sum += (nums[i] + nums[i-1]);
-      } else {
-        sum += nums[i];
-      }
-      m[{0, i}] = sum;
+  NumArray(vector<int>& nums) {
+    prefixSum = vector<int>(nums.size() + 1, 0);
+    for (int i = 1; i < prefixSum.size(); i++) {
+      prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
     }
   }
 
-  int sumRange(int i, int j) {
-    if (m.find({i, j}) != m.end()) return m[{i, j}];
-    if (i == j) return ptr[i];
-    return m[{0, j}] - m[{0, i - 1}];
+  int sumRange(int left, int right) {
+    return prefixSum[right + 1] - prefixSum[left];
   }
+private:
+  vector<int> prefixSum;
 };
